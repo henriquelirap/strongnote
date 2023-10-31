@@ -1,0 +1,70 @@
+<resources>
+
+    <!--    Generic-->
+    <string name="app_name">StrongNote</string>
+    <string name="start">Começar!</string>
+    <string name="welcome">Bem-vindo</string>
+    <string name="ok">OK</string>
+    <string name="name">Nome</string>
+    <string name="sets">Séries</string>
+    <string name="repetitions">Repetições</string>
+    <string name="rest">Intervalo</string>
+    <string name="muscle">Músculo</string>
+    <string name="rep">Rep.</string>
+    <string name="kg">KG</string>
+    <string name="min">Min.</string>
+    <string name="sec">Seg.</string>
+    <string name="warning">Atenção</string>
+    <string name="finish_workout">Finalizar Treino</string>
+    <string name="monday">Segunda-Feira</string>
+    <string name="bench_press">Supino Reto</string>
+    <string name="error">Erro</string>
+    <string name="message">Mensagem</string>
+    <string name="exercise_invalid">Exercício Inválido</string>
+    <string name="first_routine_tip">Pressione o botão flutuante para criar sua primeira rotina!</string>
+
+    <!--    Autentication-->
+    <string name="login">Login</string>
+    <string name="email">E-mail</string>
+    <string name="password">Senha</string>
+    <string name="create_account">Criar Conta</string>
+    <string name="recover_account">Recuperar Conta</string>
+    <string name="write_email">Digite seu e-mail</string>
+    <string name="write_password">Digite sua senha</string>
+    <string name="sucess">Sucesso!</string>
+    <string name="account_register_sucess">Conta criada com sucesso!</string>
+    <string name="recover_account_sucess">Link de recuperação de senha enviado ao seu e-mail com sucesso!</string>
+    <string name="logout">Deseja sair da sua conta?</string>
+
+    <!--   Routine-->
+    <string name="routine">Rotina</string>
+    <string name="routines">Rotinas</string>
+    <string name="new_routine">Nova Rotina</string>
+    <string name="invalid_routine">Rotina inválida!</string>
+
+    <!--    Action-->
+    <string name="add">Adicionar</string>
+    <string name="save">Salvar</string>
+    <string name="edit">Editar</string>
+    <string name="delete">Excluir</string>
+    <string name="cancel">Cancelar</string>
+    <string name="send">Enviar</string>
+    <string name="confirm">Confirmar</string>
+    <string name="delete_routine">Deletar Rotina</string>
+    <string name="ask_delete_routine">Deseja deletar a rotina?</string>
+    <string name="ask_delete_set">Deseja deletar a seríe?</string>
+    <string name="ask_delete_exercise">Deseja deletar o exercício?</string>
+    <string name="new_exercise">Novo Exercício</string>
+
+    <!--    Validation -->
+    <string name="email_invalid">E-mail inválido!</string>
+    <string name="email_in_use">E-mail já cadastrado!</string>
+    <string name="account_not_exists">E-mail não possui cadastro!</string>
+    <string name="password_incorret">Senha incorreta!</string>
+    <string name="password_invalid">Senha inválida!</string>
+    <string name="password_weak">A senha requer 6 caracteres ou mais!</string>
+    <string name="invalid_credentials">Credenciais inválidas!</string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

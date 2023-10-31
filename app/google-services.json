@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "706301825202",
+    "project_id": "strongnote-ed411",
+    "storage_bucket": "strongnote-ed411.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:706301825202:android:db33b35507e8ce25f8b9ab",
+        "android_client_info": {
+          "package_name": "br.com.utfpr.edu.strongnote"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe2x64gjLY6TrzmXrRGN9qN2mXSRNb6bE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

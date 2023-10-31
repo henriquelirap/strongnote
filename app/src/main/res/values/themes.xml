@@ -1,0 +1,27 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.StrongNote" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/main_black</item>
+        <item name="colorPrimaryVariant">@color/main_green</item>
+        <item name="android:windowBackground">@color/main_black</item>
+        <item name="android:fontFamily">@font/titillium_web_semi_bold</item>
+        <item name="android:textColor">@color/main_black</item>
+    </style>
+
+    <style name="Theme.StrongNote" parent="Base.Theme.StrongNote" />
+
+    <style name="BottomSheetTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="bottomSheetDialogTheme">@style/BottomSheetDialogTheme</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/BottomSheetStyle</item>
+    </style>
+
+    <style name="BottomSheetStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bg_bottom_sheet</item>
+    </style>
+
+</resources>
