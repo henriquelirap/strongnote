@@ -10,10 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.activity.addCallback
-import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import br.com.utfpr.edu.strongnote.R
 import br.com.utfpr.edu.strongnote.adapter.ViewPageAdapter
 import br.com.utfpr.edu.strongnote.databinding.FragmentMainBinding
@@ -29,7 +27,6 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private val routineList = mutableListOf<RoutineModel>()
-    private val args: ExerciseAndSetFragmentArgs by navArgs()
     private lateinit var newRoutine: RoutineModel
 
     override fun onCreateView(

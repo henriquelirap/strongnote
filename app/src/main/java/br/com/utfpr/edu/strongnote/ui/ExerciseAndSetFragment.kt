@@ -182,8 +182,6 @@ class ExerciseAndSetFragment : Fragment() {
     }
 
     private fun deleteSet(set: SetModel) {
-        val sets = mutableSetOf<SetModel>()
-
         FirebaseHelper.getDatabase()
             .child("sets")
             .child(FirebaseHelper.getIdUser())
@@ -203,8 +201,6 @@ class ExerciseAndSetFragment : Fragment() {
                     if (removedIndex != -1) {
                         setList.removeAt(removedIndex)
                         setAdapter.notifyItemRemoved(removedIndex)
-                        setList.clear()
-                        getSets()
                     }
                 }
             }
