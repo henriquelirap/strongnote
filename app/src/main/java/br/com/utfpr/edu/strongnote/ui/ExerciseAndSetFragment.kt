@@ -34,7 +34,6 @@ class ExerciseAndSetFragment : Fragment() {
     private lateinit var exerciseParcelable: ExerciseModel
     private var routineIdArgs: String = ""
     private var exerciseIdArgs: String = ""
-    private var tabPosition: Int = -1
     private var editing = false;
     private var exercise = ExerciseModel()
 

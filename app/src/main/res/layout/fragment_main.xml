@@ -212,6 +212,7 @@
             android:visibility="invisible"
             android:tooltipText="@string/new_exercise"
             tools:visibility="visible"
+            app:tint="@color/main_black"
             app:backgroundTint="@color/main_green"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
