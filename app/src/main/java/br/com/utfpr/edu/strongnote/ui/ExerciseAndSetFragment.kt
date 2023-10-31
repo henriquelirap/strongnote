@@ -1,6 +1,7 @@
 package br.com.utfpr.edu.strongnote.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -83,6 +84,7 @@ class ExerciseAndSetFragment : Fragment() {
             ).addValueEventListener(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.hasChildren()) {
+                        setList.clear()
                         for (firstNode in snapshot.children) {
                             val set =
                                 firstNode.getValue(SetModel::class.java) as SetModel
@@ -90,8 +92,8 @@ class ExerciseAndSetFragment : Fragment() {
                         }
                     }
                     setAdapter.submitList(setList)
+                    setAdapter.notifyDataSetChanged()
                 }
-
                 override fun onCancelled(error: DatabaseError) {}
             })
     }
@@ -164,12 +166,13 @@ class ExerciseAndSetFragment : Fragment() {
 
     private fun initRecyclerViewSets() {
         setAdapter = SetAdapter(requireContext(), setList) { set, position, action ->
-            setList[position] = set
 
             if ("DELETE".equals(action)) {
                 showBottomSheet(R.string.warning, R.string.ask_delete_set, true, onConfirmClick = {
-                    deleteSet(set)
+                    deleteSet(set, position)
                 })
+            } else {
+                setList[position] = set
             }
 
         }
@@ -180,7 +183,7 @@ class ExerciseAndSetFragment : Fragment() {
         }
     }
 
-    private fun deleteSet(set: SetModel) {
+    private fun deleteSet(set: SetModel, position: Int) {
         FirebaseHelper.getDatabase()
             .child("sets")
             .child(FirebaseHelper.getIdUser())
@@ -194,15 +197,9 @@ class ExerciseAndSetFragment : Fragment() {
                 }
             )
             .child(set.id)
-            .removeValue().addOnCompleteListener { task ->
-                if (task.isSuccessful) {
-                    val removedIndex = setList.indexOfFirst { it.id == set.id }
-                    if (removedIndex != -1) {
-                        setList.removeAt(removedIndex)
-                        setAdapter.notifyItemRemoved(removedIndex)
-                    }
-                }
-            }
+            .removeValue()
+        setList.remove(set)
+        setAdapter.notifyItemRemoved(position)
     }
 
     private fun addSet() {

@@ -102,7 +102,7 @@ class SetAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        val set = setList[position]
+        val set = getItem(position)
         holder.binding.setEdit.setText(set.set.toString())
         holder.binding.repEdit.setText(set.repetitions.toString())
         holder.binding.kgEdit.setText(set.kilograms.toString())
