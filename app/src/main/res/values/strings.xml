@@ -56,6 +56,7 @@
     <string name="ask_delete_set">Deseja deletar a seríe?</string>
     <string name="ask_delete_exercise">Deseja deletar o exercício?</string>
     <string name="new_exercise">Novo Exercício</string>
+    <string name="edit_routine">Editar Rotina</string>
 
     <!--    Validation -->
     <string name="email_invalid">E-mail inválido!</string>

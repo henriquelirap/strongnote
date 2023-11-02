@@ -41,7 +41,11 @@ class WelcomeFragment : Fragment() {
         binding.btnStart.isVisible = true
         binding.btnStart.setOnClickListener {
             if (FirebaseHelper.isAutenticated()) {
-                findNavController().navigate(WelcomeFragmentDirections.actionWelcomeFragmentToMainFragment(-1))
+                findNavController().navigate(
+                    WelcomeFragmentDirections.actionWelcomeFragmentToMainFragment(
+                        -1
+                    )
+                )
             } else {
                 findNavController().navigate(R.id.action_welcomeFragment_to_loginFragment)
             }

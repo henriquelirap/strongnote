@@ -37,10 +37,11 @@ class RoutineFragment(private val routineId: String, private val tabSelected: In
 
     private fun initRecyclerViewExercises() {
         exerciseAdapter = ExerciseAdapter(requireContext()) { exercise, position ->
-            val action = MainFragmentDirections.actionMainFragmentToExerciseAndSetFragment(
-                routineId, exercise.id, exercise, tabSelected
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToExerciseAndSetFragment(
+                    routineId, exercise.id, exercise, tabSelected
+                )
             )
-            findNavController().navigate(action)
         }
         with(binding.rvExercises) {
             layoutManager = LinearLayoutManager(requireContext())

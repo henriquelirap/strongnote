@@ -1,7 +1,6 @@
 package br.com.utfpr.edu.strongnote.ui
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -94,6 +93,7 @@ class ExerciseAndSetFragment : Fragment() {
                         setAdapter.submitList(setList)
                     }
                 }
+
                 override fun onCancelled(error: DatabaseError) {}
             })
     }
@@ -161,17 +161,18 @@ class ExerciseAndSetFragment : Fragment() {
         for (set in setList) {
             reference.child(set.id).setValue(set)
         }
-
-        val action = ExerciseAndSetFragmentDirections.actionExerciseAndSetFragmentToMainFragment(tabSelectedArgs)
-        findNavController().navigate(action)
+        findNavController().navigate(
+            ExerciseAndSetFragmentDirections.actionExerciseAndSetFragmentToMainFragment(
+                tabSelectedArgs
+            )
+        )
     }
 
     private fun initRecyclerViewSets() {
-        setAdapter = SetAdapter(requireContext()) { set, position, action ->
-
+        setAdapter = SetAdapter(requireContext()) { set, _, action ->
             if ("DELETE".equals(action)) {
                 showBottomSheet(R.string.warning, R.string.ask_delete_set, true, onConfirmClick = {
-                    deleteSet(set, position)
+                    deleteSet(set)
                 })
             }
         }
@@ -182,7 +183,7 @@ class ExerciseAndSetFragment : Fragment() {
         }
     }
 
-    private fun deleteSet(set: SetModel, position: Int) {
+    private fun deleteSet(set: SetModel) {
         FirebaseHelper.getDatabase()
             .child("sets")
             .child(FirebaseHelper.getIdUser())
@@ -197,8 +198,11 @@ class ExerciseAndSetFragment : Fragment() {
             )
             .child(set.id)
             .removeValue().addOnCompleteListener {
-                setAdapter.notifyItemRemoved(setList.indexOf(set))
-                setList.remove(set)
+                if (it.isSuccessful) {
+                    setList.remove(set)
+                    binding.rvEditSets.adapter = setAdapter
+                    setAdapter.submitList(setList)
+                }
             }
     }
 
@@ -284,7 +288,7 @@ class ExerciseAndSetFragment : Fragment() {
     private fun initTimePicker() {
         binding.minutePicker.minValue = 0
         binding.minutePicker.maxValue = 59
-        binding.minutePicker.setTextColor(getColor(requireContext(), R.color.main_gray))
+        binding.minutePicker.textColor = getColor(requireContext(), R.color.main_gray)
 
         binding.minutePicker.setOnScrollListener { view, scrollState ->
             exercise.minutesRest = binding.minutePicker.value
@@ -292,7 +296,7 @@ class ExerciseAndSetFragment : Fragment() {
 
         binding.secondPicker.minValue = 0
         binding.secondPicker.maxValue = 59
-        binding.secondPicker.setTextColor(getColor(requireContext(), R.color.main_gray))
+        binding.secondPicker.textColor = getColor(requireContext(), R.color.main_gray)
 
         binding.secondPicker.setOnScrollListener { view, scrollState ->
             exercise.secondsRest = binding.secondPicker.value

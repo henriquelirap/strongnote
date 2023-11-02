@@ -8,9 +8,9 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class SetModel(
     var id: String = "",
-    var set: String = "",
-    var repetitions: String = "",
-    var kilograms: String = "",
+    var set: String = "0",
+    var repetitions: String = "0",
+    var kilograms: String = "0",
 ) : Parcelable {
     init {
         this.id = FirebaseHelper.getDatabase().push().key ?: ""

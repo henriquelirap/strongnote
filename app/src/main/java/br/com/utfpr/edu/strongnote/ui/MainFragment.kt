@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -30,6 +29,7 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
     private val routineList = mutableListOf<RoutineModel>()
     private lateinit var newRoutine: RoutineModel
+    private var editing = false;
     private val args: MainFragmentArgs by navArgs()
     private var tabSelectedArgs: Int = -1
 
@@ -97,7 +97,7 @@ class MainFragment : Fragment() {
                         }
                         val pageAdapter = ViewPageAdapter(requireActivity())
                         binding.viewPagerRoutine.adapter = pageAdapter
-                        var tabSelected = binding.tabsRoutines.selectedTabPosition
+                        val tabSelected = binding.tabsRoutines.selectedTabPosition
 
                         routineList.forEach { rotina ->
                             pageAdapter.addFragment(
@@ -130,23 +130,30 @@ class MainFragment : Fragment() {
             })
     }
 
-    private fun validateData() {
+    private fun validateData(routine: RoutineModel?) {
         val routineName = binding.editNewRoutineDialog.text.toString().trim()
-        if (routineName.isNotEmpty()) {
-            newRoutine = RoutineModel()
-            newRoutine.name = routineName
-            createNewRoutine()
-        } else {
+
+        if (routineName.isEmpty()) {
             showBottomSheet(R.string.warning, R.string.invalid_routine, false)
         }
+        newRoutine = RoutineModel()
+
+        if (routine == null) {
+            newRoutine.name = routineName
+        } else {
+            newRoutine.id = routine.id
+            newRoutine.name = routineName
+        }
+        createOrEditNewRoutine()
     }
 
-    private fun createNewRoutine() {
+    private fun createOrEditNewRoutine() {
         FirebaseHelper.getDatabase()
             .child("routines")
             .child(FirebaseHelper.getIdUser())
             .child(newRoutine.id)
             .setValue(newRoutine)
+        editing = false;
     }
 
     private fun newRoutineDialogEvents() {
@@ -168,7 +175,6 @@ class MainFragment : Fragment() {
 
         binding.btnNewRoutine.setOnClickListener {
             binding.newRoutineDialog.isVisible = true
-            hideKeyboardClearField()
         }
 
         binding.btnCancelNewRoutineDialog.setOnClickListener {
@@ -176,11 +182,27 @@ class MainFragment : Fragment() {
             hideKeyboardClearField()
         }
 
+        binding.btnEditRoutine.setOnClickListener {
+            binding.newRoutineDialog.isVisible = true
+            binding.titleDialog.text = getText(R.string.edit_routine)
+            binding.editNewRoutineDialog.setText(routineList.get(binding.tabsRoutines.selectedTabPosition).name)
+            editing = true
+        }
+
         binding.btnOkNewRoutineDialog.setOnClickListener {
             binding.newRoutineDialog.isVisible = false
-            validateData()
+            if (editing) {
+                validateData(routineList.get(binding.tabsRoutines.selectedTabPosition))
+            } else {
+                validateData(null)
+            }
+
             hideKeyboardClearField()
         }
+    }
+
+    private fun editRoutineDialogEvent(){
+
     }
 
     private fun deleteRoutine(routine: RoutineModel) {
@@ -231,5 +253,4 @@ class MainFragment : Fragment() {
         intent.addCategory(Intent.CATEGORY_HOME)
         startActivity(intent)
     }
-
 }
