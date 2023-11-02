@@ -141,18 +141,19 @@ class MainFragment : Fragment() {
 
         if (routineName.isEmpty()) {
             showBottomSheet(R.string.warning, R.string.invalid_routine, false)
-        }
-        newRoutine = RoutineModel()
-
-        if (routine == null) {
-            createNewRoutine = true
-            newRoutine.name = routineName
         } else {
-            createNewRoutine = false
-            newRoutine.id = routine.id
-            newRoutine.name = routineName
+            newRoutine = RoutineModel()
+
+            if (routine == null) {
+                createNewRoutine = true
+                newRoutine.name = routineName
+            } else {
+                createNewRoutine = false
+                newRoutine.id = routine.id
+                newRoutine.name = routineName
+            }
+            createOrEditNewRoutine()
         }
-        createOrEditNewRoutine()
     }
 
     private fun createOrEditNewRoutine() {

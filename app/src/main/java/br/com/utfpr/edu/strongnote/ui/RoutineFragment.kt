@@ -65,6 +65,7 @@ class RoutineFragment(private val routineId: String, private val tabSelected: In
                             exerciseList.add(exercise)
                         }
                     }
+                    binding.rvExercises.adapter = exerciseAdapter
                     exerciseAdapter.submitList(exerciseList)
                 }
 
