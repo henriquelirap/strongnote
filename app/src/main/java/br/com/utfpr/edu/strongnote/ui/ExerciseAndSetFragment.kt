@@ -100,7 +100,7 @@ class ExerciseAndSetFragment : Fragment() {
     }
 
     private fun initListeners() {
-        binding.btnSaveSet.setOnClickListener {
+        binding.btnSaveExercise.setOnClickListener {
             validateData()
         }
 
@@ -204,7 +204,7 @@ class ExerciseAndSetFragment : Fragment() {
     }
 
     private fun addSet() {
-        binding.btnAddSet.setOnClickListener {
+        binding.fabNewSet.setOnClickListener {
             val newPosition = setList.size
             setList.add(SetModel())
             setAdapter.submitList(setList)

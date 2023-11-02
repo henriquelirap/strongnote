@@ -190,11 +190,11 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnNewRoutine"
-                android:layout_width="115dp"
+                android:layout_width="105dp"
                 android:layout_height="45dp"
                 android:background="@drawable/bg_btn_green"
                 android:drawableEnd="@drawable/ic_add_mini"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="10dp"
                 android:text="@string/routine"
                 android:textColor="@color/main_gray"
                 android:textSize="12sp"
@@ -209,7 +209,7 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnNewExercise"
-                android:layout_width="115dp"
+                android:layout_width="120dp"
                 android:layout_height="45dp"
                 android:background="@drawable/bg_btn_green"
                 android:drawableEnd="@drawable/ic_add_mini_black"
@@ -228,9 +228,9 @@
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnDeleteRoutine"
-                android:layout_width="115dp"
+                android:layout_width="105dp"
                 android:layout_height="45dp"
-                android:layout_marginEnd="2dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/bg_btn_green"
                 android:drawableEnd="@drawable/ic_delete_mini"
                 android:text="@string/routine"
