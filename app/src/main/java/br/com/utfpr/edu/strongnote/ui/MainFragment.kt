@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -105,13 +106,15 @@ class MainFragment : Fragment() {
                             tabSelected = binding.tabsRoutines.selectedTabPosition
                         }
 
+                        var page = 0;
                         routineList.forEach { rotina ->
                             pageAdapter.addFragment(
                                 RoutineFragment(
                                     rotina.id,
-                                    binding.viewPagerRoutine.currentItem + 1,
+                                    page
                                 ), rotina.name
                             )
+                            page++
                         }
 
                         binding.viewPagerRoutine.offscreenPageLimit = pageAdapter.itemCount

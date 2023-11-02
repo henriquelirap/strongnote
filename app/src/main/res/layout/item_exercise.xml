@@ -29,6 +29,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/main_green"
                 android:textSize="24sp"
+                tools:text="@string/exercise"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,6 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/main_gray"
+                tools:text="@string/muscle"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/exerciseName"/>
@@ -46,6 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/main_gray"
+                tools:text="@string/rest"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/muscleName"/>
@@ -54,10 +57,13 @@
                 android:id="@+id/btnEditSet"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:drawableRight="@drawable/ic_edit"
+                android:drawableRight="@drawable/ic_open"
+                android:text="@string/sets"
+                android:textColor="@color/main_green"
+                android:textSize="18sp"
                 app:backgroundTint="@color/main_black"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/rest" />
+                app:layout_constraintEnd_toEndOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </com.google.android.material.card.MaterialCardView>
