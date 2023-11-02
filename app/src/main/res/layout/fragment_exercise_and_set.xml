@@ -53,27 +53,13 @@
         android:id="@+id/editExerciseName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="10dp"
-        android:textColor="@color/main_gray"
         android:hint="@string/bench_press"
+        android:textColor="@color/main_gray"
         android:textColorHint="@color/main_gray_dark"
         android:textSize="22sp"
-        app:layout_constraintEnd_toStartOf="@+id/fabNewSet"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabNewSet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
-        android:clickable="true"
-        android:src="@drawable/ic_add"
-        app:backgroundTint="@color/main_gray_dark"
-        app:layout_constraintBottom_toTopOf="@+id/rvEditSets"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/main_green" />
 
     <ImageButton
         android:id="@+id/buttonSpinnerIcon"
@@ -111,7 +97,7 @@
         android:layout_margin="20dp"
         android:background="@drawable/bg_btn_gray_dark"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/btnSaveSet"
+        app:layout_constraintBottom_toTopOf="@+id/constraintLayout5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
@@ -158,32 +144,67 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/btnSaveSet"
-        android:layout_width="200dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout5"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/bg_btn_green"
-        android:clickable="true"
-        android:text="@string/save"
-        android:textColor="@color/main_black"
-        app:backgroundTint="@color/main_green"
+        android:background="@drawable/toolbar_bottom_border_custom"
+        android:paddingVertical="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabDeleteExercise"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:src="@drawable/ic_delete"
-        app:backgroundTint="@color/main_gray_dark"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btnSaveSet"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
-        app:tint="@color/main_red" />
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddSet"
+            android:layout_width="115dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="2dp"
+            android:background="@drawable/bg_btn_green"
+            android:drawableEnd="@drawable/ic_add_mini"
+            android:text="@string/sets"
+            android:textColor="@color/main_gray"
+            android:textSize="12sp"
+            app:backgroundTint="@color/main_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSaveSet"
+            android:layout_width="115dp"
+            android:layout_height="45dp"
+            android:background="@drawable/bg_btn_green"
+            android:drawableEnd="@drawable/ic_save_mini_black"
+            android:text="@string/exercise"
+            android:textColor="@color/main_black"
+            android:textSize="12sp"
+            app:backgroundTint="@color/main_green"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnDeleteExercise"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/btnAddSet"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDeleteExercise"
+            android:layout_width="115dp"
+            android:layout_height="45dp"
+            android:layout_marginEnd="2dp"
+            android:background="@drawable/bg_btn_green"
+            android:drawableEnd="@drawable/ic_delete_mini"
+            android:text="@string/exercise"
+            android:textColor="@color/main_gray"
+            android:textSize="12sp"
+            app:backgroundTint="@color/main_black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.5"
+            tools:visibility="visible" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

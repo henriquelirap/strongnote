@@ -204,7 +204,7 @@ class ExerciseAndSetFragment : Fragment() {
     }
 
     private fun addSet() {
-        binding.fabNewSet.setOnClickListener {
+        binding.btnAddSet.setOnClickListener {
             val newPosition = setList.size
             setList.add(SetModel())
             setAdapter.submitList(setList)
@@ -213,7 +213,7 @@ class ExerciseAndSetFragment : Fragment() {
     }
 
     private fun removeExercise() {
-        binding.fabDeleteExercise.setOnClickListener {
+        binding.btnDeleteExercise.setOnClickListener {
             showBottomSheet(R.string.warning, R.string.ask_delete_exercise, true, onConfirmClick = {
                 FirebaseHelper.getDatabase()
                     .child("exercises")
