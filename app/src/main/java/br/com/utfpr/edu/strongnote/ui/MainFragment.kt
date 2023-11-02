@@ -162,6 +162,7 @@ class MainFragment : Fragment() {
             .child(newRoutine.id)
             .setValue(newRoutine)
         editing = false;
+        tabSelected = binding.viewPagerRoutine.currentItem
     }
 
     private fun newRoutineDialogEvents() {
