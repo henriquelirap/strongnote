@@ -15,7 +15,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
-class RoutineFragment(val routineId: String) : Fragment() {
+class RoutineFragment(private val routineId: String, private val tabSelected: Int) : Fragment() {
     private var _binding: FragmentRoutineBinding? = null
     private val binding get() = _binding!!
     private lateinit var exerciseAdapter: ExerciseAdapter
@@ -38,7 +38,7 @@ class RoutineFragment(val routineId: String) : Fragment() {
     private fun initRecyclerViewExercises() {
         exerciseAdapter = ExerciseAdapter(requireContext()) { exercise, position ->
             val action = MainFragmentDirections.actionMainFragmentToExerciseAndSetFragment(
-                routineId, exercise.id, exercise
+                routineId, exercise.id, exercise, tabSelected
             )
             findNavController().navigate(action)
         }
@@ -65,7 +65,6 @@ class RoutineFragment(val routineId: String) : Fragment() {
                         }
                     }
                     exerciseAdapter.submitList(exerciseList)
-                    exerciseAdapter.notifyDataSetChanged()
                 }
 
                 override fun onCancelled(error: DatabaseError) {}

@@ -13,7 +13,6 @@ import br.com.utfpr.edu.strongnote.model.SetModel
 
 class SetAdapter(
     private val context: Context,
-    private val setList: MutableList<SetModel>,
     private val setSelected: (SetModel, Int, String) -> Unit
 ) : ListAdapter<SetModel, SetAdapter.MyViewHolder>(DIFF_CALLBACK) {
 
@@ -37,64 +36,7 @@ class SetAdapter(
         }
     }
 
-    inner class MyViewHolder(val binding: ItemSetsBinding) : RecyclerView.ViewHolder(binding.root) {
-        init {
-            binding.setEdit.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-                override fun afterTextChanged(s: Editable?) {
-                    val position = adapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val editedSet = setList[position].copy(set = s.toString())
-                        setSelected(editedSet, position, "")
-                    }
-                }
-            })
-            binding.repEdit.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-                override fun afterTextChanged(s: Editable?) {
-                    val position = adapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val editedSet = setList[position].copy(repetitions = s.toString())
-                        setSelected(editedSet, position, "")
-                    }
-                }
-            })
-            binding.kgEdit.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(
-                    s: CharSequence?,
-                    start: Int,
-                    count: Int,
-                    after: Int
-                ) {
-                }
-
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-                override fun afterTextChanged(s: Editable?) {
-                    val position = adapterPosition
-                    if (position != RecyclerView.NO_POSITION) {
-                        val editedSet = setList[position].copy(kilograms = s.toString())
-                        setSelected(editedSet, position, "")
-                    }
-                }
-            })
-        }
-    }
+    inner class MyViewHolder(val binding: ItemSetsBinding) : RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val binding = ItemSetsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -109,9 +51,35 @@ class SetAdapter(
         holder.binding.btnDelete.setOnClickListener {
             setSelected(set, position, DELETE)
         }
-    }
 
-    override fun getItemCount(): Int {
-        return setList.size
+        holder.binding.setEdit.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                set.set = s.toString()
+                setSelected(set, holder.adapterPosition, "")
+            }
+        })
+
+        holder.binding.repEdit.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+            override fun afterTextChanged(s: Editable?) {
+                set.repetitions = s.toString()
+                setSelected(set, holder.adapterPosition, "")
+            }
+        })
+
+        holder.binding.kgEdit.addTextChangedListener(
+            object : TextWatcher {
+                override fun beforeTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun afterTextChanged(s: Editable?) {
+                    set.kilograms = s.toString()
+                    setSelected(set, holder.adapterPosition, "")
+                }
+            })
+
+
     }
 }

@@ -11,14 +11,11 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:src="@drawable/logo_light_transparent"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -84,50 +81,17 @@
                 app:tabMode="scrollable"
                 app:tabTextColor="@color/main_gray" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fabDeleteRoutine"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginVertical="10dp"
-                android:background="@drawable/bg_btn_gray_dark"
-                android:src="@drawable/ic_delete"
-                android:tooltipText="@string/delete_routine"
-                android:visibility="invisible"
-                app:backgroundTint="@color/main_gray_dark"
-                app:tint="@color/main_red"
-                tools:layout_editor_absoluteX="340dp"
-                tools:layout_editor_absoluteY="57dp"
-                tools:visibility="visible" />
-
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                    android:id="@+id/fabNewRoutine"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="5dp"
-                    android:layout_marginVertical="10dp"
-                    android:background="@drawable/bg_btn_gray_dark"
-                    app:backgroundTint="@color/main_gray_dark"
-                    tools:visibility="visible"
-                    app:tint="@color/main_green"
-                    android:src="@drawable/ic_add"
-                    android:tooltipText="@string/new_routine"
-                    tools:layout_editor_absoluteX="340dp"
-                    tools:layout_editor_absoluteY="57dp" />
-
-            </LinearLayout>
-
+        </LinearLayout>
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/viewPagerRoutine"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/newRoutineDialog"
@@ -202,20 +166,67 @@
                 app:layout_constraintTop_toBottomOf="@+id/editNewRoutineDialog" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabNewExercise"
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:clickable="true"
-            android:src="@drawable/ic_add"
-            android:visibility="invisible"
-            android:tooltipText="@string/new_exercise"
-            tools:visibility="visible"
-            app:tint="@color/main_black"
-            app:backgroundTint="@color/main_green"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:paddingVertical="10dp"
+            android:background="@drawable/toolbar_bottom_border_custom"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNewRoutine"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginStart="20dp"
+                android:background="@drawable/bg_btn_green"
+                android:drawableEnd="@drawable/ic_add_mini"
+                android:text="@string/routine"
+                android:textColor="@color/main_gray"
+                android:textSize="12sp"
+                android:visibility="visible"
+                app:backgroundTint="@color/main_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnNewExercise"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:background="@drawable/bg_btn_green"
+                android:drawableEnd="@drawable/ic_add_mini_black"
+                android:text="@string/exercise"
+                android:textColor="@color/main_black"
+                android:textSize="12sp"
+                android:visibility="invisible"
+                app:backgroundTint="@color/main_green"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnDeleteRoutine"
+                android:layout_width="wrap_content"
+                android:layout_height="45dp"
+                android:layout_marginEnd="20dp"
+                android:background="@drawable/bg_btn_green"
+                android:drawableEnd="@drawable/ic_delete_mini"
+                android:text="@string/routine"
+                android:textColor="@color/main_gray"
+                android:textSize="12sp"
+                android:visibility="invisible"
+                app:backgroundTint="@color/main_black"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

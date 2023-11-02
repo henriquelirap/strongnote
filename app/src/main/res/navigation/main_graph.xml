@@ -55,6 +55,9 @@
         <action
             android:id="@+id/action_mainFragment_to_autenticationNest"
             app:destination="@id/autenticationNest" />
+        <argument
+            android:name="tabSelected"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/exerciseAndSetFragment"
@@ -73,5 +76,11 @@
             android:name="exerciseParcelable"
             app:argType="br.com.utfpr.edu.strongnote.model.ExerciseModel"
             app:nullable="true" />
+        <argument
+            android:name="tabSelected"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_exerciseAndSetFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
 </navigation>

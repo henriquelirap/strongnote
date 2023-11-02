@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import android.view.inputmethod.InputMethodManager
 import androidx.activity.addCallback
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import br.com.utfpr.edu.strongnote.R
 import br.com.utfpr.edu.strongnote.adapter.ViewPageAdapter
 import br.com.utfpr.edu.strongnote.databinding.FragmentMainBinding
@@ -28,40 +30,39 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
     private val routineList = mutableListOf<RoutineModel>()
     private lateinit var newRoutine: RoutineModel
+    private val args: MainFragmentArgs by navArgs()
+    private var tabSelectedArgs: Int = -1
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
-
-
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        showWelcome()
+        setBtnInvisible()
+        getArgs()
         initListeners()
     }
 
-    private fun showWelcome() {
-        val sharedPreferences =
-            requireContext().getSharedPreferences("MyPrefs", Context.MODE_PRIVATE)
-        val messageShown = sharedPreferences.getBoolean("messageShown", false)
+    private fun setBtnInvisible() {
+        binding.btnNewExercise.isVisible = false
+        binding.btnDeleteRoutine.isVisible = false
+    }
 
-        if (!messageShown) {
-            showBottomSheet(R.string.welcome, R.string.first_routine_tip, false)
-            with(sharedPreferences.edit()) {
-                putBoolean("messageShown", true)
-                apply()
+    private fun getArgs() {
+        args.tabSelected.let {
+            if (it != -1) {
+                this.tabSelectedArgs = it
             }
         }
     }
 
     private fun initListeners() {
         getRoutines()
-
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             if (findNavController().currentDestination?.id == R.id.mainFragment) {
                 minimizeApp()
@@ -88,8 +89,8 @@ class MainFragment : Fragment() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.hasChildren()) {
                         routineList.clear()
-                        binding.fabNewExercise.isVisible = true
-                        binding.fabDeleteRoutine.isVisible = true
+                        binding.btnNewExercise.isVisible = true
+                        binding.btnDeleteRoutine.isVisible = true
                         for (ds in snapshot.children) {
                             val routine = ds.getValue(RoutineModel::class.java) as RoutineModel
                             routineList.add(routine)
@@ -101,7 +102,8 @@ class MainFragment : Fragment() {
                         routineList.forEach { rotina ->
                             pageAdapter.addFragment(
                                 RoutineFragment(
-                                    rotina.id
+                                    rotina.id,
+                                    tabSelected + 1,
                                 ), rotina.name
                             )
                         }
@@ -113,10 +115,13 @@ class MainFragment : Fragment() {
                         ) { tab, position ->
                             tab.text = pageAdapter.getTitle(position)
                         }.attach()
-                        binding.tabsRoutines.getTabAt(tabSelected)?.select()
+                        if (tabSelectedArgs != -1) {
+                            binding.tabsRoutines.getTabAt(tabSelectedArgs)?.select()
+                        } else {
+                            binding.tabsRoutines.getTabAt(tabSelected)?.select()
+                        }
                     } else {
-                        binding.fabNewExercise.isVisible = false
-                        binding.fabDeleteRoutine.isVisible = false
+                        setBtnInvisible()
                         binding.tabsRoutines.removeAllTabs()
                     }
                 }
@@ -145,22 +150,23 @@ class MainFragment : Fragment() {
     }
 
     private fun newRoutineDialogEvents() {
-        binding.fabNewExercise.setOnClickListener {
+        binding.btnNewExercise.setOnClickListener {
             val action = MainFragmentDirections.actionMainFragmentToExerciseAndSetFragment(
                 getSelectedRoutineTab().id,
                 null,
-                null
+                null,
+                binding.tabsRoutines.selectedTabPosition
             )
             findNavController().navigate(action)
         }
 
-        binding.fabDeleteRoutine.setOnClickListener {
+        binding.btnDeleteRoutine.setOnClickListener {
             showBottomSheet(R.string.warning, R.string.ask_delete_routine, true, onConfirmClick = {
                 deleteRoutine(getSelectedRoutineTab())
             })
         }
 
-        binding.fabNewRoutine.setOnClickListener {
+        binding.btnNewRoutine.setOnClickListener {
             binding.newRoutineDialog.isVisible = true
             hideKeyboardClearField()
         }
@@ -195,6 +201,8 @@ class MainFragment : Fragment() {
             .child(FirebaseHelper.getIdUser())
             .child(routine.id)
             .removeValue()
+
+        tabSelectedArgs = 0
     }
 
     private fun getSelectedRoutineTab(): RoutineModel {

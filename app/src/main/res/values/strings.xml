@@ -21,6 +21,7 @@
     <string name="error">Erro</string>
     <string name="message">Mensagem</string>
     <string name="exercise_invalid">Exercício Inválido</string>
+    <string name="exercise">Exercício</string>
     <string name="first_routine_tip">Pressione o botão flutuante para criar sua primeira rotina!</string>
 
     <!--    Autentication-->

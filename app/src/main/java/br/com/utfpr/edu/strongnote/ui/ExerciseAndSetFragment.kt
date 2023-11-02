@@ -35,6 +35,7 @@ class ExerciseAndSetFragment : Fragment() {
     private lateinit var exerciseParcelable: ExerciseModel
     private var routineIdArgs: String = ""
     private var exerciseIdArgs: String = ""
+    private var tabSelectedArgs: Int = -1
     private var editing = false;
     private var exercise = ExerciseModel()
 
@@ -90,9 +91,8 @@ class ExerciseAndSetFragment : Fragment() {
                                 firstNode.getValue(SetModel::class.java) as SetModel
                             setList.add(set)
                         }
+                        setAdapter.submitList(setList)
                     }
-                    setAdapter.submitList(setList)
-                    setAdapter.notifyDataSetChanged()
                 }
                 override fun onCancelled(error: DatabaseError) {}
             })
@@ -161,20 +161,19 @@ class ExerciseAndSetFragment : Fragment() {
         for (set in setList) {
             reference.child(set.id).setValue(set)
         }
-        findNavController().popBackStack()
+
+        val action = ExerciseAndSetFragmentDirections.actionExerciseAndSetFragmentToMainFragment(tabSelectedArgs)
+        findNavController().navigate(action)
     }
 
     private fun initRecyclerViewSets() {
-        setAdapter = SetAdapter(requireContext(), setList) { set, position, action ->
+        setAdapter = SetAdapter(requireContext()) { set, position, action ->
 
             if ("DELETE".equals(action)) {
                 showBottomSheet(R.string.warning, R.string.ask_delete_set, true, onConfirmClick = {
                     deleteSet(set, position)
                 })
-            } else {
-                setList[position] = set
             }
-
         }
         with(binding.rvEditSets) {
             layoutManager = LinearLayoutManager(requireContext())
@@ -197,9 +196,10 @@ class ExerciseAndSetFragment : Fragment() {
                 }
             )
             .child(set.id)
-            .removeValue()
-        setList.remove(set)
-        setAdapter.notifyItemRemoved(position)
+            .removeValue().addOnCompleteListener {
+                setAdapter.notifyItemRemoved(setList.indexOf(set))
+                setList.remove(set)
+            }
     }
 
     private fun addSet() {
@@ -251,6 +251,11 @@ class ExerciseAndSetFragment : Fragment() {
         args.exerciseParcelable.let {
             if (it != null) {
                 this.exerciseParcelable = it
+            }
+        }
+        args.tabSelected.let {
+            if (it != -1) {
+                this.tabSelectedArgs = it
             }
         }
     }
