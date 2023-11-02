@@ -1,6 +1,7 @@
 package br.com.utfpr.edu.strongnote.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -37,11 +38,10 @@ class RoutineFragment(private val routineId: String, private val tabSelected: In
 
     private fun initRecyclerViewExercises() {
         exerciseAdapter = ExerciseAdapter(requireContext()) { exercise, position ->
-            findNavController().navigate(
-                MainFragmentDirections.actionMainFragmentToExerciseAndSetFragment(
-                    routineId, exercise.id, exercise, tabSelected
-                )
+            val action = MainFragmentDirections.actionMainFragmentToExerciseAndSetFragment(
+                routineId, exercise.id, exercise, tabSelected
             )
+            findNavController().navigate(action)
         }
         with(binding.rvExercises) {
             layoutManager = LinearLayoutManager(requireContext())

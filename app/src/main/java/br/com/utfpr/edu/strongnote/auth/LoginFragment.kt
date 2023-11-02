@@ -76,7 +76,7 @@ class LoginFragment : Fragment() {
                 if (it.isSuccessful) {
                     hideKeyboard()
                     clearLoginFields()
-                    findNavController().navigate(LoginFragmentDirections.actionGlobalMainFragment(-1))
+                    findNavController().navigate(R.id.action_global_mainFragment)
                 } else {
                     showBottomSheet(
                         R.string.warning,

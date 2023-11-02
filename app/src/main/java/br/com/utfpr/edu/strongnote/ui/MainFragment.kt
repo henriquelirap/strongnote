@@ -29,9 +29,10 @@ class MainFragment : Fragment() {
     private val binding get() = _binding!!
     private val routineList = mutableListOf<RoutineModel>()
     private lateinit var newRoutine: RoutineModel
-    private var editing = false;
     private val args: MainFragmentArgs by navArgs()
-    private var tabSelectedArgs: Int = -1
+    private var editing = false;
+    private var createNewRoutine = false;
+    private var tabSelected = 0;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,25 +44,18 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setBtnInvisible()
-        getArgs()
+        setBtnInvisible(false)
         initListeners()
     }
 
-    private fun setBtnInvisible() {
-        binding.btnNewExercise.isVisible = false
-        binding.btnDeleteRoutine.isVisible = false
-    }
-
-    private fun getArgs() {
-        args.tabSelected.let {
-            if (it != -1) {
-                this.tabSelectedArgs = it
-            }
-        }
+    private fun setBtnInvisible(visible: Boolean) {
+        binding.btnNewExercise.isVisible = visible
+        binding.btnDeleteRoutine.isVisible = visible
+        binding.btnEditRoutine.isVisible = visible
     }
 
     private fun initListeners() {
+        getArgs()
         getRoutines()
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             if (findNavController().currentDestination?.id == R.id.mainFragment) {
@@ -70,6 +64,12 @@ class MainFragment : Fragment() {
         }
         logoutUser()
         newRoutineDialogEvents()
+    }
+
+    private fun getArgs() {
+        args.tabSelected.let {
+            this.tabSelected = it
+        }
     }
 
     private fun logoutUser() {
@@ -81,6 +81,10 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun tabRoutineNavigate(tab: Int) {
+        binding.viewPagerRoutine.currentItem = tab
+    }
+
     private fun getRoutines() {
         FirebaseHelper.getDatabase()
             .child("routines")
@@ -89,21 +93,23 @@ class MainFragment : Fragment() {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.hasChildren()) {
                         routineList.clear()
-                        binding.btnNewExercise.isVisible = true
-                        binding.btnDeleteRoutine.isVisible = true
+                        setBtnInvisible(true)
                         for (ds in snapshot.children) {
                             val routine = ds.getValue(RoutineModel::class.java) as RoutineModel
                             routineList.add(routine)
                         }
                         val pageAdapter = ViewPageAdapter(requireActivity())
                         binding.viewPagerRoutine.adapter = pageAdapter
-                        val tabSelected = binding.tabsRoutines.selectedTabPosition
+
+                        if (createNewRoutine) {
+                            tabSelected = binding.tabsRoutines.selectedTabPosition
+                        }
 
                         routineList.forEach { rotina ->
                             pageAdapter.addFragment(
                                 RoutineFragment(
                                     rotina.id,
-                                    tabSelected + 1,
+                                    binding.viewPagerRoutine.currentItem + 1,
                                 ), rotina.name
                             )
                         }
@@ -115,15 +121,12 @@ class MainFragment : Fragment() {
                         ) { tab, position ->
                             tab.text = pageAdapter.getTitle(position)
                         }.attach()
-                        if (tabSelectedArgs != -1) {
-                            binding.tabsRoutines.getTabAt(tabSelectedArgs)?.select()
-                        } else {
-                            binding.tabsRoutines.getTabAt(tabSelected)?.select()
-                        }
+                        tabRoutineNavigate(tabSelected)
                     } else {
-                        setBtnInvisible()
+                        setBtnInvisible(false)
                         binding.tabsRoutines.removeAllTabs()
                     }
+                    createNewRoutine = false
                 }
 
                 override fun onCancelled(error: DatabaseError) {}
@@ -139,8 +142,10 @@ class MainFragment : Fragment() {
         newRoutine = RoutineModel()
 
         if (routine == null) {
+            createNewRoutine = true
             newRoutine.name = routineName
         } else {
+            createNewRoutine = false
             newRoutine.id = routine.id
             newRoutine.name = routineName
         }
@@ -158,13 +163,14 @@ class MainFragment : Fragment() {
 
     private fun newRoutineDialogEvents() {
         binding.btnNewExercise.setOnClickListener {
-            val action = MainFragmentDirections.actionMainFragmentToExerciseAndSetFragment(
-                getSelectedRoutineTab().id,
-                null,
-                null,
-                binding.tabsRoutines.selectedTabPosition
+            findNavController().navigate(
+                MainFragmentDirections.actionMainFragmentToExerciseAndSetFragment(
+                    getSelectedRoutineTab().id,
+                    null,
+                    null,
+                    binding.viewPagerRoutine.currentItem
+                )
             )
-            findNavController().navigate(action)
         }
 
         binding.btnDeleteRoutine.setOnClickListener {
@@ -175,6 +181,7 @@ class MainFragment : Fragment() {
 
         binding.btnNewRoutine.setOnClickListener {
             binding.newRoutineDialog.isVisible = true
+            binding.titleDialog.text = getText(R.string.new_routine)
         }
 
         binding.btnCancelNewRoutineDialog.setOnClickListener {
@@ -185,25 +192,21 @@ class MainFragment : Fragment() {
         binding.btnEditRoutine.setOnClickListener {
             binding.newRoutineDialog.isVisible = true
             binding.titleDialog.text = getText(R.string.edit_routine)
-            binding.editNewRoutineDialog.setText(routineList.get(binding.tabsRoutines.selectedTabPosition).name)
+            binding.editNewRoutineDialog.setText(getSelectedRoutineTab().name)
             editing = true
         }
 
         binding.btnOkNewRoutineDialog.setOnClickListener {
             binding.newRoutineDialog.isVisible = false
             if (editing) {
-                validateData(routineList.get(binding.tabsRoutines.selectedTabPosition))
+                validateData(getSelectedRoutineTab())
             } else {
                 validateData(null)
             }
-
             hideKeyboardClearField()
         }
     }
 
-    private fun editRoutineDialogEvent(){
-
-    }
 
     private fun deleteRoutine(routine: RoutineModel) {
         FirebaseHelper.getDatabase()
@@ -223,12 +226,11 @@ class MainFragment : Fragment() {
             .child(FirebaseHelper.getIdUser())
             .child(routine.id)
             .removeValue()
-
-        tabSelectedArgs = 0
+        tabSelected = 0
     }
 
     private fun getSelectedRoutineTab(): RoutineModel {
-        return routineList.get(binding.tabsRoutines.selectedTabPosition)
+        return routineList[binding.tabsRoutines.selectedTabPosition]
     }
 
     private fun hideKeyboardClearField() {

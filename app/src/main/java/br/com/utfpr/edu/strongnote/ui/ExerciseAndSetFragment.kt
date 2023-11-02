@@ -1,6 +1,7 @@
 package br.com.utfpr.edu.strongnote.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -34,7 +35,7 @@ class ExerciseAndSetFragment : Fragment() {
     private lateinit var exerciseParcelable: ExerciseModel
     private var routineIdArgs: String = ""
     private var exerciseIdArgs: String = ""
-    private var tabSelectedArgs: Int = -1
+    private var tabSelectedArgs: Int = 0
     private var editing = false;
     private var exercise = ExerciseModel()
 
@@ -161,16 +162,12 @@ class ExerciseAndSetFragment : Fragment() {
         for (set in setList) {
             reference.child(set.id).setValue(set)
         }
-        findNavController().navigate(
-            ExerciseAndSetFragmentDirections.actionExerciseAndSetFragmentToMainFragment(
-                tabSelectedArgs
-            )
-        )
+        findNavController().navigate(ExerciseAndSetFragmentDirections.actionExerciseAndSetFragmentToMainFragment(tabSelectedArgs))
     }
 
     private fun initRecyclerViewSets() {
         setAdapter = SetAdapter(requireContext()) { set, _, action ->
-            if ("DELETE".equals(action)) {
+            if ("DELETE" == action) {
                 showBottomSheet(R.string.warning, R.string.ask_delete_set, true, onConfirmClick = {
                     deleteSet(set)
                 })
@@ -258,9 +255,7 @@ class ExerciseAndSetFragment : Fragment() {
             }
         }
         args.tabSelected.let {
-            if (it != -1) {
-                this.tabSelectedArgs = it
-            }
+            this.tabSelectedArgs = it
         }
     }
 
