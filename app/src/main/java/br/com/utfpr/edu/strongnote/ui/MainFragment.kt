@@ -140,6 +140,7 @@ class MainFragment : Fragment() {
         val routineName = binding.editNewRoutineDialog.text.toString().trim()
 
         if (routineName.isEmpty()) {
+            editing = false
             showBottomSheet(R.string.warning, R.string.invalid_routine, false)
         } else {
             newRoutine = RoutineModel()
