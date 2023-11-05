@@ -59,20 +59,23 @@
         android:hint="@string/bench_press"
         android:textColorHint="@color/main_gray_dark"
         android:textSize="22sp"
-        app:layout_constraintEnd_toStartOf="@+id/fabNewSet"
+        app:layout_constraintEnd_toStartOf="@+id/btnNewSet"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fabNewSet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <Button
+        android:id="@+id/btnNewSet"
+        android:layout_width="105dp"
+        android:layout_height="45dp"
         android:layout_marginRight="10dp"
-        android:clickable="true"
-        android:src="@drawable/ic_add"
+        android:background="@drawable/bg_btn_gray"
+        android:drawableEnd="@drawable/ic_add_mini"
+        android:text="@string/set"
+        android:textColor="@color/main_gray"
         app:backgroundTint="@color/main_gray_dark"
         app:layout_constraintBottom_toTopOf="@+id/rvEditSets"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         app:tint="@color/main_green" />
 
     <ImageButton

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -63,22 +62,12 @@ class MainFragment : Fragment() {
                 minimizeApp()
             }
         }
-        logoutUser()
-        newRoutineDialogEvents()
+        buttonEventsListeners()
     }
 
     private fun getArgs() {
         args.tabSelected.let {
             this.tabSelected = it
-        }
-    }
-
-    private fun logoutUser() {
-        binding.btnLogout.setOnClickListener {
-            showBottomSheet(R.string.warning, R.string.logout, true, onConfirmClick = {
-                FirebaseHelper.getAuth().signOut()
-                findNavController().navigate(R.id.action_mainFragment_to_autenticationNest)
-            })
         }
     }
 
@@ -167,7 +156,14 @@ class MainFragment : Fragment() {
         tabSelected = binding.viewPagerRoutine.currentItem
     }
 
-    private fun newRoutineDialogEvents() {
+    private fun buttonEventsListeners() {
+        binding.btnLogout.setOnClickListener {
+            showBottomSheet(R.string.warning, R.string.logout, true, onConfirmClick = {
+                FirebaseHelper.getAuth().signOut()
+                findNavController().navigate(R.id.action_mainFragment_to_autenticationNest)
+            })
+        }
+
         binding.btnNewExercise.setOnClickListener {
             findNavController().navigate(
                 MainFragmentDirections.actionMainFragmentToExerciseAndSetFragment(
@@ -211,8 +207,11 @@ class MainFragment : Fragment() {
             }
             hideKeyboardClearField()
         }
-    }
 
+        binding.btnDisclaimer.setOnClickListener {
+            showBottomSheet(R.string.warning, R.string.disclaimer, false)
+        }
+    }
 
     private fun deleteRoutine(routine: RoutineModel) {
         FirebaseHelper.getDatabase()

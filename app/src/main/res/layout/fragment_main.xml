@@ -28,11 +28,30 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
+
             <com.google.android.material.appbar.MaterialToolbar
                 android:id="@+id/toolbarTop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/toolbar_top_border_custom">
+
+                <ImageButton
+                    android:id="@+id/btnDisclaimer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:padding="16dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_info" />
+
+                <ImageButton
+                    android:id="@+id/btnLogout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:background="@android:color/transparent"
+                    android:padding="16dp"
+                    android:src="@drawable/ic_logout"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -42,17 +61,6 @@
                     android:textColor="@color/main_green"
                     android:textSize="18sp" />
 
-                <ImageButton
-                    android:id="@+id/btnLogout"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                    android:padding="16dp"
-                    android:src="@drawable/ic_logout"
-                    android:layout_gravity="end"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
             </com.google.android.material.appbar.MaterialToolbar>
 
@@ -86,6 +94,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_edit_gray"
+                app:tint="@color/main_green"
                 android:visibility="invisible"
                 tools:visibility="visible"
                 android:layout_margin="20dp"

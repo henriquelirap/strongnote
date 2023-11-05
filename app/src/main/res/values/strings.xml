@@ -22,6 +22,12 @@
     <string name="message">Mensagem</string>
     <string name="exercise_invalid">Exercício Inválido</string>
     <string name="exercise">Exercício</string>
+    <string name="set">Série</string>
+    <string name="disclaimer">O StrongNote é um aplicativo desenvolvido para auxiliar
+        os usuários a registrarem seus treinos realizados e cargas utilizadas. É importante
+        ressaltar que não fazemos recomendações de exercícios ou elaborações de treinos específicos
+        aos usuários. Recomendamos fortemente a procura de um profissonal de educação física para a
+        elaboração de um programa de treinamento personalizado!</string>
     <string name="first_routine_tip">Pressione o botão flutuante para criar sua primeira rotina!</string>
 
     <!--    Autentication-->
