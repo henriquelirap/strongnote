@@ -65,12 +65,12 @@
 
     <Button
         android:id="@+id/btnNewSet"
-        android:layout_width="105dp"
+        android:layout_width="130dp"
         android:layout_height="45dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/bg_btn_gray"
         android:drawableEnd="@drawable/ic_add_mini"
-        android:text="@string/set"
+        android:text="@string/execution"
         android:textColor="@color/main_gray"
         app:backgroundTint="@color/main_gray_dark"
         app:layout_constraintBottom_toTopOf="@+id/rvEditSets"

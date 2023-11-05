@@ -168,7 +168,7 @@ class ExerciseAndSetFragment : Fragment() {
     private fun initRecyclerViewSets() {
         setAdapter = SetAdapter(requireContext()) { set, _, action ->
             if ("DELETE" == action) {
-                showBottomSheet(R.string.warning, R.string.ask_delete_set, true, onConfirmClick = {
+                showBottomSheet(R.string.warning, R.string.ask_delete_execution, true, onConfirmClick = {
                     deleteSet(set)
                 })
             }

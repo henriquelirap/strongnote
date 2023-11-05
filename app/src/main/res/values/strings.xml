@@ -23,6 +23,7 @@
     <string name="exercise_invalid">Exercício Inválido</string>
     <string name="exercise">Exercício</string>
     <string name="set">Série</string>
+    <string name="execution">Execução</string>
     <string name="disclaimer">O StrongNote é um aplicativo desenvolvido para auxiliar
         os usuários a registrarem seus treinos realizados e cargas utilizadas. É importante
         ressaltar que não fazemos recomendações de exercícios ou elaborações de treinos específicos
@@ -59,7 +60,7 @@
     <string name="confirm">Confirmar</string>
     <string name="delete_routine">Deletar Rotina</string>
     <string name="ask_delete_routine">Deseja deletar a rotina?</string>
-    <string name="ask_delete_set">Deseja deletar a seríe?</string>
+    <string name="ask_delete_execution">Deseja deletar a execução?</string>
     <string name="ask_delete_exercise">Deseja deletar o exercício?</string>
     <string name="new_exercise">Novo Exercício</string>
     <string name="edit_routine">Editar Rotina</string>
