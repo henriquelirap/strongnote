@@ -65,7 +65,7 @@
 
     <Button
         android:id="@+id/btnNewSet"
-        android:layout_width="130dp"
+        android:layout_width="wrap_content"
         android:layout_height="45dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/bg_btn_gray"
@@ -171,7 +171,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveExercise"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:background="@drawable/bg_btn_green"
             android:drawableEnd="@drawable/ic_save_mini_black"
@@ -189,7 +189,7 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDeleteExercise"
-            android:layout_width="120dp"
+            android:layout_width="wrap_content"
             android:layout_height="45dp"
             android:background="@drawable/bg_btn_green"
             android:drawableEnd="@drawable/ic_delete_mini"
